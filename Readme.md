@@ -6,6 +6,8 @@ Open **main.py** file and configure with your own data these two values:
 ```
 bot_token = 'YOUR_BOT_TOKEN'
 chat_id = 'YOUR_CHAT_ID'
+discord_webhook_url= 'YOUR_DISCORD_WEBHOOK_URL'
+mode='discord'/mode='telegram'/mode='multiple'
 ```
 
 # Seminars to check

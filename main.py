@@ -53,8 +53,15 @@ def runProcess(seminarList):
 
         logging.info(message)
 
-        if sendMessage:
-            sendTelegramMessage(message)
+        if sendMessage==True:
+            if mode == 'discord':
+                requests.post(discord_webhook_url, json={'content': message})
+            elif mode == 'telegram':
+                sendTelegramMessage(message)
+            elif mode == 'multiple':
+                requests.post(discord_webhook_url, json={'content': message})
+                sendTelegramMessage(message)
+
 
 
 def read_seminars_from_file(filename):
@@ -77,6 +84,9 @@ if __name__ == '__main__':
     actualPrice = 550.0
     bot_token = 'YOUR_BOT_TOKEN'
     chat_id = 'YOUR_CHAT_ID'
+    discord_webhook_url= 'YOUR_DISCORD_WEBHOOK_URL'
+    # mode = 'telegram'  # 'telegram' or 'discord' # mode = 'multiple'
+    mode='discord'
 
     logging.basicConfig(format='%(message)s', level=logging.INFO, datefmt='%m/%d/%Y %I:%M:%S %p')
 
