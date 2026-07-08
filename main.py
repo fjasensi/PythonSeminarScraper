@@ -67,7 +67,7 @@ def evaluateSeminar(content, seminar):
         return False, f"Seminar: {seminar.name} no percentage discount found"
 
     if previous_discount_percentage is None:
-        should_notify = current_discount_percentage > min_discount_percentage
+        should_notify = current_discount_percentage >= min_discount_percentage
         message = (
             f"Seminar: {seminar.name} discount is {formatPercentage(current_discount_percentage)}% "
             f"(threshold {formatPercentage(min_discount_percentage)}%)"
@@ -75,7 +75,7 @@ def evaluateSeminar(content, seminar):
         return should_notify, message
 
     if (
-        current_discount_percentage > min_discount_percentage
+        current_discount_percentage >= min_discount_percentage
         and current_discount_percentage > previous_discount_percentage
     ):
         message = (

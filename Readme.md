@@ -17,7 +17,7 @@ MIN_DISCOUNT_PERCENTAGE=20
 
 `DISCOUNT_ALERT_MODE` options:
 - `keyword` (default): current behavior, sends alert if "descuento" exists in page content.
-- `increase_over_threshold`: sends alert only when the detected `% de descuento` increases and is above `MIN_DISCOUNT_PERCENTAGE`.
+- `increase_over_threshold`: sends alert only when the detected `% de descuento` is at least `MIN_DISCOUNT_PERCENTAGE` and later increases.
 
 # Telegram setup
 If you forgot your credentials:
@@ -38,7 +38,7 @@ pip install -r requirements.txt
 .venv/bin/python main.py
 ```
 
-Example for your use case (alert only if discount goes above 20% and later increases):
+Example for your use case (alert if discount reaches 20% and later increases):
 ```dotenv
 DISCOUNT_ALERT_MODE=increase_over_threshold
 MIN_DISCOUNT_PERCENTAGE=20
