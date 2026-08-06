@@ -13,11 +13,22 @@ TELEGRAM_CHAT_ID=<YOUR_CHAT_ID>
 MODE=telegram
 DISCOUNT_ALERT_MODE=keyword
 MIN_DISCOUNT_PERCENTAGE=20
+PRICE_ALERT_THRESHOLD=550
+CATALOG_URL=https://escueladehumanidades.unir.net/oferta-academica/
+LOG_TIMEZONE=Europe/Madrid
 ```
 
 `DISCOUNT_ALERT_MODE` options:
 - `keyword` (default): current behavior, sends alert if "descuento" exists in page content.
 - `increase_over_threshold`: sends alert only when the detected `% de descuento` is at least `MIN_DISCOUNT_PERCENTAGE` and later increases.
+
+Price monitoring always runs alongside percentage monitoring. It sends an alert
+when a detected price is below `PRICE_ALERT_THRESHOLD`, and again only if that
+price later drops further.
+
+On every cycle, the scraper discovers all seminars linked from `CATALOG_URL` and
+checks them in addition to the entries in `seminars.txt`. Duplicate URLs are
+checked only once. Container logs include local date, time, timezone and level.
 
 # Telegram setup
 If you forgot your credentials:
@@ -48,6 +59,9 @@ MIN_DISCOUNT_PERCENTAGE=20
 Edit `seminars.txt` to add or remove seminars.
 
 # Docker
+The container uses a Chrome-compatible TLS/HTTP fingerprint when loading seminar
+pages so that CDN anti-bot protection does not reject Python's default HTTP client.
+
 ## Build image
 ```bash
 docker build -t seminar_scraper .
